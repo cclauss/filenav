@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 ###############################################################################
 # litenav by dgelessus
-# A simplified version of the original filenav. Only supports basic folder
-# listing and navigation.
+# A simplified version of the original filenav.
+#   Only supports basic folder listing and navigation.
 ###############################################################################
 
 import os  # used to navigate the file structure
-import sys # for sys.argv
 import ui  # duh
 
 class FileDataSource(object):
@@ -45,12 +44,7 @@ class FileDataSource(object):
 
     def tableview_title_for_header(self, tableview, section):
         # Return a title for the given section.
-        if section == 0:
-            return "Folders"
-        elif section == 1:
-            return "Files"
-        else:
-            return ""
+        return  {0 : 'Folders', 1 : 'Files'}.get(section, '')
     
     def tableview_did_select(self, tableview, section, row):
         # Called when the user selects a row
@@ -77,7 +71,6 @@ def make_file_list(path):
     lst.background_color = 1.0
     lst.data_source = lst.delegate = FileDataSource(path)
     lst.name = os.path.basename(path)
-    current_list = lst
     return lst
 
 if __name__ == "__main__":
